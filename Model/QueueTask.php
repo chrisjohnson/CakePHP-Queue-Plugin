@@ -286,6 +286,8 @@ class QueueTask extends QueueAppModel {
 			'cpu_limit' => $options['cpu_limit'],
             'key' => $options['key'],
 		);
+        var_dump($data);
+        exit;
 		if (!empty($options['scheduled']) || !empty($options['cpu_limit'])) {
 			$data['is_restricted'] = true;
 		}
