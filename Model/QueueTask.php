@@ -259,6 +259,7 @@ class QueueTask extends QueueAppModel {
 			'priority' => 100,
 			'scheduled' => null,
 			'scheduled_end' => null,
+            'key' => null,
 		), (array) $options);
 		$options['cpu_limit'] = $options['cpu'];
 
@@ -282,7 +283,8 @@ class QueueTask extends QueueAppModel {
 			'scheduled' => $options['scheduled'],
 			'scheduled_end' => $options['scheduled_end'],
 			'reschedule' => $options['reschedule'],
-			'cpu_limit' => $options['cpu_limit']
+			'cpu_limit' => $options['cpu_limit'],
+            'key' => $options['key'],
 		);
 		if (!empty($options['scheduled']) || !empty($options['cpu_limit'])) {
 			$data['is_restricted'] = true;
