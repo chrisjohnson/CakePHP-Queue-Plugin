@@ -449,7 +449,7 @@ class QueueTask extends QueueAppModel {
 		}
 		$this->__setInProgress($id);
 		$data = $this->read();
-		QueueUtil::writeLog('Running Queue ID: ' . $id);
+		QueueUtil::writeLog('Running Queue ID: ' . $id . ', type: ' . $data[$this->alias]['type']);
 		switch ($data[$this->alias]['type']) {
 			case 1:
 				$retval = $this->__runModelQueue($data);
@@ -577,7 +577,11 @@ class QueueTask extends QueueAppModel {
 			}
 			$Model = ClassRegistry::init($pluginmodel);
 			$command = "\$retval['result'] = \$Model->$function;";
-			@eval($command);
+			try {
+				@eval($command);
+			} catch (Exception $e) {
+				QueueUtil::writeLog('Failed execution with error: ' . $e->getMessage());
+            }
 			if ($retval['result'] !== false) {
 				$retval['success'] = true;
 			}
