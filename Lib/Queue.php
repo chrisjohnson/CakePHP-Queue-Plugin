@@ -82,15 +82,9 @@ class Queue extends Object {
 	* @param string uuid
 	* @return mixed array of queue or false if not found.
 	*/
-	public static function findByKey($key = null) {
+	public static function findIncompleteByKey($key = null) {
 		self::loadQueueTask();
-		if (self::$QueueTask->hasAny(array('QueueTask.key' => $key))) {
-			return self::$QueueTask->findByKey($key);
-		}
-		self::loadQueueTaskLog();
-		if (self::$QueueTaskLog->hasAny(array('QueueTaskLog.key' => $key))) {
-			return self::$QueueTaskLog->findByKey($key);
-		}
+		return self::$QueueTask->find('all', ['key' => $key, 'status' => [1, 2]]);
 		return false;
 	}
 
