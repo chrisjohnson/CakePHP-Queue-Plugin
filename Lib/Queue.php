@@ -89,6 +89,17 @@ class Queue extends Object {
 	}
 
 	/**
+	* Return the queue from QueueTask or QueueTaskLog as an associative array
+	* @param string uuid
+	* @return mixed array of queue or false if not found.
+	*/
+	public static function findFailedByKey($key = null) {
+		self::loadQueueTask();
+		return self::$QueueTask->find('all', ['key' => $key, 'status' => [5]]);
+		return false;
+	}
+
+	/**
 	* View the task as a string representation looks in QueueTask and QueueTaskLog
 	* @param string uuid
 	* @return string representation of task.
