@@ -84,8 +84,7 @@ class Queue extends Object {
 	*/
 	public static function findIncompleteByKey($key = null) {
 		self::loadQueueTask();
-		return self::$QueueTask->find('all', ['key' => $key, 'status' => [1, 2]]);
-		return false;
+		return self::$QueueTask->find('all', ['conditions' => ['key' => $key, 'status' => [1, 2]]]);
 	}
 
 	/**
@@ -95,8 +94,7 @@ class Queue extends Object {
 	*/
 	public static function findFailedByKey($key = null) {
 		self::loadQueueTask();
-		return self::$QueueTask->find('all', ['key' => $key, 'status' => [5]]);
-		return false;
+		return self::$QueueTask->find('all', ['conditions' => ['key' => $key, 'status' => [5]]]);
 	}
 
 	/**
